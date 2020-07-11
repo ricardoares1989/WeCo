@@ -1,0 +1,1 @@
+from .wecoapp import weCo
