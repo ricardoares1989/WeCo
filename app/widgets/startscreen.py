@@ -1,10 +1,16 @@
 """ Start screen view."""
 
+#config
+from app.config import DatabaseManagement
 
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.screenmanager import ScreenManager
 
-class StartScreenWidget(ScreenManager):
-    """Class which contains the widget for initialize the app."""
+
+class StartScreenWid(BoxLayout):
+    """ Start screen"""
     def __init__(self, **kwargs):
-        super(StartScreenWidget, self).__init__(**kwargs)
+        super(StartScreenWid, self).__init__()
+
+    def create_or_connect_to_database(self):
+        db = DatabaseManagement()
+        db.connect_to_database()
