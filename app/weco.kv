@@ -6,25 +6,25 @@
             pos: self.pos
             size: self.size
 
-<StartScreenWid>
-    orientation: 'vertical'
-    canvas:
-        Rectangle:
-            pos: self.pos
-            size: self.size
-    BoxLayout:
-        size_hint_y: 0.2
-    Image:
-        source: 'media/logo.png'
-        size: (400,200)
-        size_hint: 1, None
-    Button:
-        # Para tener aproximadamente un tamaño lo haremos con respecto a la pantalla
-        text: 'Empezar a pesar'
-        font_size: 30
-        color: .03,.23,.46,1
-        size_hint_y: 0.1
-        background_color: 0,0,0,0
-        on_press: root.create_or_connect_to_database()
-    BoxLayout:
-        size_hint_y: 0.2
+# <StartScreenWid>
+#     orientation: 'vertical'
+#     canvas:
+#         Rectangle:
+#             pos: self.pos
+#             size: self.size
+#     BoxLayout:
+#         size_hint_y: 0.2
+#     Image:
+#         source: 'media/logo.png'
+#         size: (400,200)
+#         size_hint: 1, None
+#     Button:
+#         # Para tener aproximadamente un tamaño lo haremos con respecto a la pantalla
+#         text: 'Empezar a pesar'
+#         font_size: 30
+#         color: .03,.23,.46,1
+#         size_hint_y: 0.1
+#         background_color: 0,0,0,0
+#         on_press: root.create_or_connect_to_database()
+#     BoxLayout:
+#         size_hint_y: 0.2

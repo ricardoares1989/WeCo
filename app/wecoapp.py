@@ -17,18 +17,12 @@ from kivy.uix.image import Image
 #Widgets
 from app.widgets.startscreen import StartScreenWid
 
+#classes
+from .widgets.main_screenwid import MainScreenWidget
+
 #Screen start config
 Config.set("graphics", "width", "980")
 Config.set("graphics", "height", "720")
-
-class MainScreenWidget(ScreenManager):
-    """Class which contains the widget for initialize the app."""
-    def __init__(self, **kwargs):
-        super(MainScreenWidget, self).__init__()
-        self.StartScreenWidget = StartScreenWid()
-        wid = Screen(name='start')
-        wid.add_widget(self.StartScreenWidget)
-        self.add_widget(wid)
 
 
 
