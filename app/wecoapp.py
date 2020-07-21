@@ -23,6 +23,8 @@ from .widgets.main_screenwid import MainScreenWidget
 #Screen start config
 Config.set("graphics", "width", "980")
 Config.set("graphics", "height", "720")
+Config.set("graphics", "minimum_width", "860")
+Config.set("graphics", "minimum_height", "600")
 
 
 

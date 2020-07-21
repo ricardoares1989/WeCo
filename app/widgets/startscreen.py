@@ -34,14 +34,17 @@ class StartScreenWid(BoxLayout):
         ))
         self.add_widget(db_connection)
         logo = BoxLayout(orientation='vertical')
-        icono = BoxLayout(
-            orientation='vertical',
-            size_hint_y=0.6
-        )
-        icono.add_widget(Image(source='media/logo.png',size_hint=[1,None],size=[400,400]))
+        # icono = BoxLayout(
+        #     orientation='vertical',
+        #     size_hint_y=0.6
+        # )
+        # icono.add_widget(Image(source='media/logo.png',size_hint=[1,None],size=[400,400]))
             
-        logo.add_widget(BoxLayout(size_hint_y=.2))
-        logo.add_widget(icono)
+        # logo.add_widget(BoxLayout(size_hint_y=.2))
+
+        logo.add_widget(Image(source='media/logo.png',size_hint=[1,None],size=[400,400]))
+        # logo.add_widget(icono)
+        self.main_wid = main_wid
         logo.add_widget(Button(
             size_hint_y=.2,
             height=300,
@@ -49,7 +52,7 @@ class StartScreenWid(BoxLayout):
             text="Empezar a pesar",
             font_size='30sp',
             color=[.03,.23,.46,1],
-            on_press=self.create_or_connect_to_database()
+            on_press=self.create_or_connect_to_database
             ))
         logo.add_widget(BoxLayout(size_hint_y=.2))
         self.add_widget(logo)
@@ -62,7 +65,8 @@ class StartScreenWid(BoxLayout):
 
         
 
-    def create_or_connect_to_database(self):
+    def create_or_connect_to_database(self, *args, **kwargs):
         db = DatabaseManagement()
         db.connect_to_database()
+        self.main_wid.goto_weigth()
        
