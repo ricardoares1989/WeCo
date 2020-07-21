@@ -7,6 +7,9 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 from kivy.uix.button import Button
 
+#Rectangle
+from kivy.graphics import Rectangle
+
 
 class StartScreenWid(BoxLayout):
     """ Start screen"""
@@ -34,16 +37,8 @@ class StartScreenWid(BoxLayout):
         ))
         self.add_widget(db_connection)
         logo = BoxLayout(orientation='vertical')
-        # icono = BoxLayout(
-        #     orientation='vertical',
-        #     size_hint_y=0.6
-        # )
-        # icono.add_widget(Image(source='media/logo.png',size_hint=[1,None],size=[400,400]))
-            
-        # logo.add_widget(BoxLayout(size_hint_y=.2))
 
         logo.add_widget(Image(source='media/logo.png',size_hint=[1,None],size=[400,400]))
-        # logo.add_widget(icono)
         self.main_wid = main_wid
         logo.add_widget(Button(
             size_hint_y=.2,

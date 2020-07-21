@@ -1,9 +1,15 @@
 """Screen view for weight the products."""
 
 #kivy
-from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
 
-class WeightScreenWid(GridLayout):
+#widget models
+from app.widgets.components.screenmodel import ScreenModelWidget
+
+class WeightScreenWid(BoxLayout):
     def __init__(self, main_wid, **kwargs):
         super(WeightScreenWid, self).__init__()
-        pass
+        self.add_widget(ScreenModelWidget())
+
+
+

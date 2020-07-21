@@ -29,3 +29,4 @@ class MainScreenWidget(ScreenManager):
 
     def goto_weigth(self):
         self.current = 'weight'
+
