@@ -9,7 +9,7 @@ from kivy.graphics import *
 
 #components
 from app.widgets.components.header import headerWidget
-
+from app.widgets.components.workbox import WorkBoxWidget
 
 
 class ScreenModelWidget(BoxLayout):
@@ -19,11 +19,7 @@ class ScreenModelWidget(BoxLayout):
     def __init__(self, *args, **kwargs):
         super(ScreenModelWidget, self).__init__(*args, **kwargs)
         self.orientation = 'vertical' 
-        self.work_box = BoxLayout(
-            size_hint=[1, .8],
-            orientation='vertical'     
-        )
-        self.work_box.add_widget(Label(text='Ricardo'))
+        self.work_box = WorkBoxWidget()
         self.header = headerWidget()
         # self.header.add_widget(Label(text='Header'))
         self.add_widget(self.header)

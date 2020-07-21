@@ -1,0 +1,46 @@
+
+<WorkBoxWidget>:
+    id: WorkBox
+    wid_weights: weights
+    canvas.before:
+        Color:
+            rgba: [1,1,1,0]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            spacing: 20
+            padding: 50
+            Label:
+                id: weights
+                size_hint: [1,.8]
+                text: WorkBox.weight_read
+                font_size: '60sp'
+                canvas.before:
+                    Color: 
+                        rgba: .97, .34, .21, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+        BoxLayout:
+            spacing: 20
+            padding: 50
+            ScrollView:
+                GridLayout:
+                    id: container
+                    size_hint_y: None
+                    cols: 1
+                    row_default_height: 20
+                    height: self.minimum_height
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Tabla'
+        BoxLayout:
+            Button:
+                text: '1'
+            Button:
+                text: '2'

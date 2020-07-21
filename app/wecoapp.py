@@ -8,6 +8,7 @@ import os
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.app import App
 from kivy.config import Config
+from kivy.lang import Builder
 
 #Kivy Widgets
 
@@ -26,7 +27,7 @@ Config.set("graphics", "height", "720")
 Config.set("graphics", "minimum_width", "860")
 Config.set("graphics", "minimum_height", "600")
 
-
+Builder.load_file('app/workbox.kv')
 
 class weCo(App):
     """Class to implement the functionality of
