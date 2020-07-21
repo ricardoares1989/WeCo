@@ -7,6 +7,9 @@ from kivy.uix.label import Label
 #Graphics
 from kivy.graphics import *
 
+#components
+from app.widgets.components.header import headerWidget
+
 
 
 class ScreenModelWidget(BoxLayout):
@@ -21,10 +24,7 @@ class ScreenModelWidget(BoxLayout):
             orientation='vertical'     
         )
         self.work_box.add_widget(Label(text='Ricardo'))
-        self.header = BoxLayout(
-            size_hint=[1,.2],
-
-        )
-        self.header.add_widget(Label(text='Header'))
-        self.add_widget(header)
-        self.add_widget(work_box)
+        self.header = headerWidget()
+        # self.header.add_widget(Label(text='Header'))
+        self.add_widget(self.header)
+        self.add_widget(self.work_box)
