@@ -2,7 +2,6 @@
 
 #Layputs
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label import Label
 
 #Graphics
 from kivy.graphics import *
@@ -21,6 +20,5 @@ class ScreenModelWidget(BoxLayout):
         self.orientation = 'vertical' 
         self.work_box = WorkBoxWidget()
         self.header = headerWidget()
-        # self.header.add_widget(Label(text='Header'))
         self.add_widget(self.header)
         self.add_widget(self.work_box)

@@ -58,10 +58,11 @@ class StartScreenWid(BoxLayout):
         ))
 
 
-        
-
     def create_or_connect_to_database(self, *args, **kwargs):
         db = DatabaseManagement()
-        db.connect_to_database()
+        db.use_database()
+        db.create_tables()
+        db.create_product()
         self.main_wid.goto_weigth()
+
        

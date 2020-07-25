@@ -10,11 +10,6 @@ from kivy.app import App
 from kivy.config import Config
 from kivy.lang import Builder
 
-#Kivy Widgets
-
-from kivy.uix.label import Label
-from kivy.uix.image import Image
-
 #Widgets
 from app.widgets.startscreen import StartScreenWid
 
@@ -35,5 +30,4 @@ class weCo(App):
 
     title = "Welcome to WeCo"
     def build(self):
-        #nos regresara el widget principal que regresa el contenedor de todos los widgets.
         return MainScreenWidget()

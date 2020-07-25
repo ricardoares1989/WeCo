@@ -1,4 +1,19 @@
 
+<BackgroundColor@Widget>
+    background_color: 0, 0, 0, 0
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+<BackgroundLabel@Label+BackgroundColor>
+    background_color: 0, 0, 0, 0
+
+<BackgroundButton@Button+BackgroundColor>
+    background_color: 247/256, 149/256, 137/256, .4
+
 <WorkBoxWidget>:
     id: WorkBox
     wid_weights: weights
@@ -18,29 +33,47 @@
                 size_hint: [1,.8]
                 text: WorkBox.weight_read
                 font_size: '60sp'
+                color: WorkBox.color_text 
                 canvas.before:
                     Color: 
-                        rgba: .97, .34, .21, 1
+                        rgba: 244/255, 211/255, 94/255, 1
                     Rectangle:
                         size: self.size
                         pos: self.pos
+
         BoxLayout:
-            spacing: 20
-            padding: 50
+            orientation: 'vertical'
+            spacing: 1
+            padding: [80,0,80,0]
+            BackgroundLabel:
+                text: "Seleccionar producto."
+                size_hint_y: None
+                height: 40
+                background_color: 8/255, 61/255, 119/255, 1
             ScrollView:
                 GridLayout:
-                    id: container
+                    padding: [20,0,20,0]
+                    id: container_buttons
                     size_hint_y: None
                     cols: 1
-                    row_default_height: 20
-                    height: self.minimum_height
+                    row_default_height: 30
+                    height: 30
+
 
     BoxLayout:
         orientation: 'vertical'
         Label:
             text: 'Tabla'
         BoxLayout:
-            Button:
-                text: '1'
-            Button:
-                text: '2'
+            size_hint: [1,0.3]
+            padding: [30,30,30,30]
+            spacing: 20
+            BackgroundButton:
+                id: save_data
+                text: 'Guardar'
+                font_size: '30sp'
+            BackgroundButton:
+                id: stats_button
+                text: 'Estadisticas'
+                font_size: '30sp'
+

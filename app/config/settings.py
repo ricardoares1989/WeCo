@@ -1,19 +1,29 @@
+
+
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+USER = os.getenv("USER")
+PASSWORD_DB = os.getenv("PASSWORD_DB")
+HOST = os.getenv("HOST")
+DB_NAME = os.getenv("DB_NAME")
+
 #DATABASE SETTINGS
 config = {
-    'user': 'root',
-    'password': 'Protection1989',
-    'host': '127.0.0.1',
-    'database': 'WECO',
+    'user': USER,
+    'password': PASSWORD_DB,
+    'host': HOST,
+    'database': DB_NAME,
 }
 
-DB_NAME = 'WECO'
 
 TABLES = {}
 
 TABLES['products'] = (
     "CREATE TABLE IF NOT EXISTS products ("
     "   `product_id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,"
-    "   `name` VARCHAR(50) NOT NULL"
+    "   `name` VARCHAR(50) NOT NULL UNIQUE"
     ") ENGINE=InnoDB")
 
 TABLES['registers'] = (
@@ -26,3 +36,25 @@ TABLES['registers'] = (
     "   ON UPDATE CURRENT_TIMESTAMP,"
     "FOREIGN KEY (product_id) REFERENCES products(product_id)"
     ") ENGINE=InnoDB")
+
+add_product = ("INSERT INTO products "
+                "(name)"
+                "VALUES (%(name)s)"
+    )
+products = [
+    {'name': 'naranja'}, 
+    {'name': 'jitomate'}, 
+    {'name': 'pepino'},
+    {'name': 'arandano'},
+    {'name': 'Saladette'},
+    ]
+
+query_products = (
+                "SELECT name FROM `weco`.`products`"
+                "ORDER BY name"
+                ) 
+
+blue_weco = [8/255, 61/255, 119/255, 0.6]
+white_weco = [235/255, 235/255, 211/255, 1]
+yellow_weco = [244/255, 211/255, 94/255, 1]
+orange_weco = [249/255, 87/255, 56/255, 1]

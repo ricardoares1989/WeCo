@@ -6,72 +6,77 @@ import mysql.connector
 from mysql.connector import errorcode
 
 #Settings
-from .settings import config, DB_NAME, TABLES
+from .settings import (config, 
+        DB_NAME, 
+        TABLES, 
+        add_product,
+        products)
 
 
-
+def database_decorator(func):
+    def wrapper(*args, **kwargs):
+        try:
+            func(*args, **kwargs)
+            return func
+        except mysql.connector.Error as err:
+            print(err)
+            if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+                print("Something is wrong with your user name or password")
+            else:
+                print(err)
+                exit(1)
+        return func
+    return wrapper
 
 class DatabaseManagement:
     """Class it has the methods to manage the database in mysql."""
 
-
+    @database_decorator
     def create_database(self, cursor):
         """Create database if not exists."""
-        try:
-            cursor.execute(
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor()
+        cursor.execute(
                 f"CREATE DATABASE {DB_NAME} DEFAULT CHARACTER SET 'utf8'"
             )
-        except mysql.connector.Error as err:
-            print(f"Failed creating database: {err}")
-            exit(1)
 
-    def use_database(self, cursor):
+    @database_decorator
+    def use_database(self):
         """Function to focus in the database."""
-        try: 
-            cursor.execute(f"USE {DB_NAME}")
-        except mysql.connector.Error as err:
-            print(err)
-            exit(1)
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor()
+        cursor.execute(f"USE {DB_NAME};")
+        cursor.close()
+        return 
 
-    def create_tables(self, cursor):
-        """Create the neccesary tables products and registers."""
+    @database_decorator
+    def create_tables(self):
+        """Create the neccesary tables products and registers.""" 
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor()
         for table_name in TABLES:
             table_desciption = TABLES[table_name]
-            try:
-                print(f"Creating table{table_name}", end ='')
-                cursor.execute(table_desciption)
-            except mysql.connector.Error as err:
-                print(err.msg)
-            else:
-                print("OK")
-    
-    def connect_to_database(self):
-        """connection to database."""
-        try:
-            cnx = mysql.connector.connect(**config)
-        except mysql.connector.Error as err:
-            if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                print("Something is wrong with your user name or password")
-            elif err.errno == errorcode.ER_BAD_DB_ERROR:
-                print("Database does not exist")
-                cnx = mysql.connector.connect(user='root', password='Protection1989')
-                cursor = cnx.cursor()
-                self.create_database(cursor)
-                self.use_database(cursor)
-                self.create_tables(cursor)
-                cursor.close()
-            else:
-                print(err)
-        else:
-            cnx.close()
-    
+            print(f"Creating table{table_name}", end ='')
+            cursor.execute(table_desciption)
+        cursor.close()
+        return 
+
+    @database_decorator
     def proof_database(self):
-        try:
-            cnx = mysql.connector.connect(**config)
-            return cnx
-        except mysql.connector.Error as err:
-            if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                print("Something is wrong with your user name or password")
-            else:
-                print(err)
-        
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor()
+        return cursor
+    
+    @database_decorator
+    def create_product(self):
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor()
+        for product in products:
+            try:
+                cursor.execute(add_product, product)
+                cnx.commit()
+            except mysql.connector.Error as err:
+                if err.errno == 1062:
+                    pass
+        cursor.close()
+        return 

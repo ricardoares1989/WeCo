@@ -4,28 +4,45 @@ import csv
 
 #widgets
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label import Label
-from kivy.uix.button import Button
+from kivy.uix.togglebutton import ToggleButton
+
+#My sql
+import mysql.connector
 
 # clock
 from kivy.clock import Clock
 
-#Properties
-from kivy.properties import StringProperty
+# Properties
+from kivy.properties import StringProperty, ObjectProperty
 
+#Config
+from app.config.settings import query_products, config, blue_weco
 
 
 class WorkBoxWidget(BoxLayout):
 
     weight_read = StringProperty(f"0 kg")
+    color_text = ObjectProperty(blue_weco)
     
     def __init__(self, *args, **kwargs):
         super(WorkBoxWidget, self).__init__(*args, **kwargs)
         self.size_hint = [1 , .8]
         self.orientation = 'horizontal'
-        for i in range(30):
-            self.ids.container.add_widget(Button())
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor()
+        cursor.execute(query_products)
+        products = cursor
+        for name in products:
+            name = str(name[0])
+            self.ids.container_buttons.add_widget(
+                ToggleButton(
+                    background_color=blue_weco,
+                    text=name,
+                    border=(0,5,0,5),
+                    group='products'
+                    ))
         self.weights = Clock.schedule_interval(self.last_weight,1)
+
 
     def last_weight(self, *args, **kwargs):
         file_path = './pesos.csv'

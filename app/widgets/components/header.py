@@ -11,10 +11,6 @@ from app.config import DatabaseManagement
 from kivy.properties import OptionProperty, ListProperty
 
 
-
-
-
-
 class headerWidget(BoxLayout):
     def __init__(self, *args, **kwargs):
         super(headerWidget, self).__init__(*args, **kwargs)
