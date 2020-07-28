@@ -1,10 +1,7 @@
 """ Screen model widget for all the screens except startscreen."""
 
-#Layputs
+#Layouts
 from kivy.uix.boxlayout import BoxLayout
-
-#Graphics
-from kivy.graphics import *
 
 #components
 from app.widgets.components.header import headerWidget

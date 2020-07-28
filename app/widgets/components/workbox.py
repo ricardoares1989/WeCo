@@ -16,8 +16,11 @@ from kivy.clock import Clock
 from kivy.properties import StringProperty, ObjectProperty
 
 #Config
-from app.config.settings import query_products, config, blue_weco
+from app.config.settings import query_products, query_register, config, blue_weco
 
+#Components
+from app.widgets.components.products_buttons import ProductButton
+from app.widgets.components.table_registers import TableRegisterWidget
 
 class WorkBoxWidget(BoxLayout):
 
@@ -32,16 +35,15 @@ class WorkBoxWidget(BoxLayout):
         cursor = cnx.cursor()
         cursor.execute(query_products)
         products = cursor
-        for name in products:
-            name = str(name[0])
+        for pk, name in products:
             self.ids.container_buttons.add_widget(
-                ToggleButton(
-                    background_color=blue_weco,
+                ProductButton(
                     text=name,
-                    border=(0,5,0,5),
-                    group='products'
+                    group='products',
+                    id_product=pk
                     ))
         self.weights = Clock.schedule_interval(self.last_weight,1)
+
 
 
     def last_weight(self, *args, **kwargs):
@@ -53,4 +55,29 @@ class WorkBoxWidget(BoxLayout):
                 rows.append(row)
             last_row = rows[-1]
             self.weight_read = last_row[0] + ' kg'
+
+    def product_selected(self, *args, **kwargs):
+        product_id = ''
+        for pb in self.ids.container_buttons.children:
+            if pb.state =='down':
+                product_id = pb.id_product
+        weight = float(self.ids.weights.text[:-3])
+
+        
+        try:
+            if product_id:
+                data_register = {
+                    "weigth": weight,
+                    "product_id": product_id
+                    }
+                cnx = mysql.connector.connect(**config)
+                cursor = cnx.cursor()
+                cursor.execute(query_register, data_register)
+                cnx.commit()
+                cursor.close()
+                cnx.close()
+            else:
+                pass
+        except Exception as ex:
+            print(ex)
 

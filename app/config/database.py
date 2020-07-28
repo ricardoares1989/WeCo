@@ -80,3 +80,13 @@ class DatabaseManagement:
                     pass
         cursor.close()
         return 
+
+
+    @staticmethod
+    def db_executor():
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor()
+        return cursor
+    
+
+

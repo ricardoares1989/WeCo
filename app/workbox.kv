@@ -14,6 +14,28 @@
 <BackgroundButton@Button+BackgroundColor>
     background_color: 247/256, 149/256, 137/256, .4
 
+<HeadTableWidget>
+    background_color: 0,0,0,0
+    size_hint_y: None
+    canvas.before:
+        Color:
+            rgba: .5, .5, .5, 1
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+
+
+<CellTableWidget>
+    background_color: 0,0,0,0
+    height: 10
+    canvas.before:
+        Color:
+            rgba: .5, .5, .5, 1
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+
+
 <WorkBoxWidget>:
     id: WorkBox
     wid_weights: weights
@@ -62,8 +84,12 @@
 
     BoxLayout:
         orientation: 'vertical'
-        Label:
-            text: 'Tabla'
+        BoxLayout:
+            padding: [30,30,30,30]
+            spacing: 20
+            TableRegisterWidget:
+                id: table_register                  
+
         BoxLayout:
             size_hint: [1,0.3]
             padding: [30,30,30,30]
@@ -72,8 +98,12 @@
                 id: save_data
                 text: 'Guardar'
                 font_size: '30sp'
+                on_press: [root.product_selected(), table_register.update_table()]
             BackgroundButton:
                 id: stats_button
                 text: 'Estadisticas'
                 font_size: '30sp'
+                on_press: print(table_register.children)
+
+
 

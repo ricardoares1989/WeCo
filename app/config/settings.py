@@ -50,7 +50,7 @@ products = [
     ]
 
 query_products = (
-                "SELECT name FROM `weco`.`products`"
+                "SELECT product_id, name FROM `weco`.`products`"
                 "ORDER BY name"
                 ) 
 
@@ -58,3 +58,9 @@ blue_weco = [8/255, 61/255, 119/255, 0.6]
 white_weco = [235/255, 235/255, 211/255, 1]
 yellow_weco = [244/255, 211/255, 94/255, 1]
 orange_weco = [249/255, 87/255, 56/255, 1]
+
+query_register = (
+    "INSERT INTO registers"
+    "(weigth, product_id)" 
+    "VALUES (%(weigth)s, %(product_id)s)"
+)
