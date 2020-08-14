@@ -8,6 +8,8 @@ USER = os.getenv("USER")
 PASSWORD_DB = os.getenv("PASSWORD_DB")
 HOST = os.getenv("HOST")
 DB_NAME = os.getenv("DB_NAME")
+DB_PORT = os.getenv("DB_PORT")
+
 
 #DATABASE SETTINGS
 config = {
@@ -15,16 +17,23 @@ config = {
     'password': PASSWORD_DB,
     'host': HOST,
     'database': DB_NAME,
+    'port': DB_PORT
 }
 
 
 TABLES = {}
 
 TABLES['products'] = (
-    "CREATE TABLE IF NOT EXISTS products ("
-    "   `product_id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,"
-    "   `name` VARCHAR(50) NOT NULL UNIQUE"
-    ") ENGINE=InnoDB")
+    """
+    CREATE TABLE IF NOT EXISTS public.products
+    (
+    product_id serial,
+    name character varying(50) NOT NULL,
+    CONSTRAINT product_id PRIMARY KEY (product_id),
+    CONSTRAINT name UNIQUE (name)
+    );
+    """
+    )
 
 TABLES['registers'] = (
     "CREATE TABLE IF NOT EXISTS registers ("
@@ -35,7 +44,7 @@ TABLES['registers'] = (
     "`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP"
     "   ON UPDATE CURRENT_TIMESTAMP,"
     "FOREIGN KEY (product_id) REFERENCES products(product_id)"
-    ") ENGINE=InnoDB")
+    ")")
 
 add_product = ("INSERT INTO products "
                 "(name)"
